@@ -1,18 +1,21 @@
 {% extends "layout.html" %}
-
 {% block content %}
-<h1>Debt with Friends</h1>
-<p>Find people to go in debt with here! 
-  <a href="http://www.craigslist.org/about/sites#US">U :) </a></p>
-  
-					
-					<img src="{{ url_for('static', filename='img/ufo_003.jpg') }}" />
-        <p>Sighting by the <strong>UMW Research Team</strong> near <strong>Area 51</strong></p>
-        <p>You can view our entire list of abductions by clicking the tab above!</p>
-        <h2>Current Advisories:</h2>
-        <ul>
-          <li>21 January 2014. <strong>Tall Whites</strong> spotted near Slaughter Canyon, NV. Use extreme caution</li>
-          <li>20 January 2014. <strong>Tall Whites</strong> spotted near Reno, NV. </li>
-
-        </ul>
+      <div id="content">
+        <h1>Welcome to Debt With Friends!</h1>
+        <h2>Check Out Your Debts Below!</h2>
+        <h3>Remember you can report a friend's debt in the other tab or check out what they owe!</h3>
+        <table>
+         <tr><th>Transaction</th><th>Debt</th><th>Description</th></tr>
+        {% for result in results %}
+        <tr><td>{{result['transaction']}}</td><td>{{result['debt_amount']}}</td><td>{{result['description']}}</td></tr>
+        {% endfor %}
+         </table>
+        <h2>Your friends and their total debts</h2>
+        <table>
+         <tr><th>First Name</th><th>Last Name</th><th>Debts</th></tr>
+        {% for result in results %}
+        <tr><td>{{result['firstname']}}</td><td>{{result['lastname']}}</td><td>{{result['total_debt']}}</td></tr>
+        {% endfor %}
+         </table>
+      </div>
 {% endblock %}
