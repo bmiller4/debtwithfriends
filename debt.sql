@@ -1,32 +1,26 @@
 DROP DATABASE debtDB;
 
 CREATE DATABASE IF NOT EXISTS debtDB;
-GRANT ALL PRIVILEGES ON debtDB.* to 'debt'@'localhost' 
+GRANT ALL PRIVILEGES ON debtDB.* to 'debt'@'localhost'
 identified by 'password';
 USE debtDB;
 
 CREATE TABLE main_list (
-  id INT NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(25),
   lastname VARCHAR(25),
-  total_debt INT(1000),
-  PRIMARY KEY(id)
+  total_debt INT(100)
 );
 
 CREATE TABLE friend_debt (
-  id INT NOT NULL AUTO_INCREMENT,
-  transaction VARCHAR(50),
-  debt_amount INT(100),
-  description VARCHAR(100),
-  PRIMARY KEY(id)
-);
-
-CREATE TABLE user_debt (
-  id INT NOT NULL AUTO_INCREMENT,
   transaction VARCHAR(50),
   debt_amount INT(100),
   description VARCHAR(100)
-  PRIMARY KEY(id)
+);
+
+CREATE TABLE user_debt (
+  transaction VARCHAR(50),
+  debt_amount INT(100),
+  description VARCHAR(100)
 );
  
 

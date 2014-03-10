@@ -6,14 +6,14 @@
         <h3>Remember you can report a friend's debt in the other tab or check out what they owe!</h3>
         <table>
          <tr><th>Transaction</th><th>Debt</th><th>Description</th></tr>
-        {% for result in results %}
+        {% for result in user_debt %}
         <tr><td>{{result['transaction']}}</td><td>{{result['debt_amount']}}</td><td>{{result['description']}}</td></tr>
         {% endfor %}
          </table>
         <h2>Your friends and their total debts</h2>
         <table>
          <tr><th>First Name</th><th>Last Name</th><th>Debts</th></tr>
-        {% for result in results %}
+        {% for result in main_list %}
         <tr><td>{{result['firstname']}}</td><td>{{result['lastname']}}</td><td>{{result['total_debt']}}</td></tr>
         {% endfor %}
          </table>

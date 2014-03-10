@@ -2,8 +2,8 @@
 import MySQLdb
 
 
-DATABASE='alienDB'
-DB_USER = 'alien'
+DATABASE='debtDB'
+DB_USER = 'debt'
 DB_PASSWORD = 'password'
 HOST = 'localhost'
 
