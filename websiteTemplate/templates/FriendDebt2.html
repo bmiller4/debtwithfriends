@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+      <div id="content">
+        <h1>Friends in Debt</h1>
+        <table>
+         <tr><th>Transaction</th><th>Debt</th><th>Description</th></tr>
+        {% for result in results %}
+        <tr><td>{{result['transaction']}}</td><td>{{result['debt_amount']}}</td><td>{{result['description']}}</td></tr>
+        {% endfor %}
+         </table>
+      </div>
+{% endblock %}

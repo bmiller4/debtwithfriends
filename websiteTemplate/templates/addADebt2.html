@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Add a New Friend's Debt</h1>
+<form method = "post" action = "/FriendsInDebt">
+					<table>
+					<tr><td>Transaction</td><td><input type="text" id="transaction" name="transaction" /></td></tr>
+					<tr><td>Debt Incurred</td><td><input type="number" name="debt_amount" min="1" max="12" step="1" value="1" size="3" /></td></tr>
+          <tr><td>Description</td><td><input type="text" id = "description" name="description" /></td></tr> <!---min="1" max="12" step="1" value="1" size="3"/>--->
+					</table>
+					
+</form>
+{% endblock %}
