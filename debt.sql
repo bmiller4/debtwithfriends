@@ -6,7 +6,7 @@ identified by 'password';
 USE debtDB;
 
 CREATE TABLE main_list (
-  id INT NOT NULL AUTO_INCREMENT,
+  --id INT NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(25),
   lastname VARCHAR(25),
   total_debt INT(1000),
@@ -14,7 +14,7 @@ CREATE TABLE main_list (
 );
 
 CREATE TABLE friend_debt (
-  id INT NOT NULL AUTO_INCREMENT,
+  --id INT NOT NULL AUTO_INCREMENT,
   transaction VARCHAR(50),
   debt_amount INT(100),
   description VARCHAR(100),
@@ -22,7 +22,7 @@ CREATE TABLE friend_debt (
 );
 
 CREATE TABLE user_debt (
-  id INT NOT NULL AUTO_INCREMENT,
+  --id INT NOT NULL AUTO_INCREMENT,
   transaction VARCHAR(50),
   debt_amount INT(100),
   description VARCHAR(100)
