@@ -34,3 +34,4 @@ INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Patric
 INSERT INTO friend_debt VALUES('Zacharski', 55, 'stole my girlfriend');
 INSERT INTO friend_debt VALUES('Benshoff', 10, 'Back massage');
 INSERT INTO friend_debt VALUES('Patrick', -10, 'let me eat girlscout cookies');
+INSERT INTO user_debt VALUES ('Raz', 1, 'Bummed a smoke');

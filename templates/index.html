@@ -5,9 +5,9 @@
         <h3>Remember you can report a friend's debt amount in the other tab or check out what they owe!</h3>
          <h2>Check Out Your Debts Below!</h2>
         <table>
-         <tr><th>Transaction</th><th>Debt</th><th>Description</th></tr>
+         <tr><th>User ID</th><th>Debt</th><th>Description</th></tr>
         {% for result in user_debt %}
-        <tr><td>{{result['transaction']}}</td><td>{{result['debt_amount']}}</td><td>{{result['description']}}</td></tr>
+        <tr><td>{{result['user_id']}}</td><td>{{result['debt_amount']}}</td><td>{{result['description']}}</td></tr>
         {% endfor %}
          </table>
         <h2>Your friends and their total debt points</h2>
