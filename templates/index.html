@@ -3,14 +3,14 @@
       <div id="content">
         <h1>Welcome to Debt With Friends!</h1>
         <h2>Check Out Your Debts Below!</h2>
-        <h3>Remember you can report a friend's debt in the other tab or check out what they owe!</h3>
+        <h3>Remember you can report a friend's debt amount in the other tab or check out what they owe!</h3>
         <table>
          <tr><th>Transaction</th><th>Debt</th><th>Description</th></tr>
         {% for result in user_debt %}
         <tr><td>{{result['transaction']}}</td><td>{{result['debt_amount']}}</td><td>{{result['description']}}</td></tr>
         {% endfor %}
          </table>
-        <h2>Your friends and their total debts</h2>
+        <h2>Your friends and their total debt points</h2>
         <table>
          <tr><th>First Name</th><th>Last Name</th><th>Debts</th></tr>
         {% for result in main_list %}

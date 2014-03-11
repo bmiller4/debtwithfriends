@@ -30,3 +30,7 @@ INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Brenna
 INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Austin','Bouchard', -1);
 INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Riley','Starrs', 0);
 INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Patrick','Stalcup', 59);
+
+INSERT INTO friend_debt VALUES('Zacharski', 55, 'stole my girlfriend');
+INSERT INTO friend_debt VALUES('Benshoff', 10, 'Back massage');
+INSERT INTO friend_debt VALUES('Patrick', -10, 'let me eat girlscout cookies');
