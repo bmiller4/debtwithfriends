@@ -6,25 +6,27 @@ identified by 'password';
 USE debtDB;
 
 CREATE TABLE main_list (
+  id INT NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(25),
   lastname VARCHAR(25),
-  total_debt INT(100)
+  total_debt INT(100),
+  PRIMARY KEY(id)
 );
 
 CREATE TABLE friend_debt (
-  transaction VARCHAR(50),
+  friend_lastname VARCHAR(50),
   debt_amount INT(100),
   description VARCHAR(100)
 );
 
 CREATE TABLE user_debt (
-  transaction VARCHAR(50),
+  user_id VARCHAR(50),
   debt_amount INT(100),
   description VARCHAR(100)
 );
  
 
-INSERT INTO main_list VALUES ('Brennan','Miller', 10);
-INSERT INTO main_list VALUES ('Austin','Bouchard', 30);
-INSERT INTO main_list VALUES ('Riley','Starrs', 50);
-INSERT INTO main_list VALUES ('Patrick','Stalcup', -59);
+INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Brennan','Miller', 0);
+INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Austin','Bouchard', -1);
+INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Riley','Starrs', 0);
+INSERT INTO main_list (id, firstname, lastname, total_debt) VALUES (NULL,'Patrick','Stalcup', 59);

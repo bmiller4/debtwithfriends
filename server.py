@@ -15,14 +15,23 @@ def homePage():
   rows = cur.fetchall()
   
   return render_template('index.html', main_list=rows, selectedMenu = 'Home')
-  
-@app.route('/newDebt')
-def newDebtIndex():
-    return render_template('addADebt.html', selectedMenu = 'NewDebt')
 
-@app.route('/FriendsInDebt')
+@app.route('addaDebt')
+def addDebt():
+    query = 'UPDATE main_list SET total_debt = total_debt' + form.request(debt_amount) + 'WHERE lastname = ' + form.request(friend_lastname)
+    db = util.db_connect()
+    cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+    cur.execute(query)
+    db.commit()
+    return render_template('addaDebt.html', selectedMenu = 'NewDebt')
+  
+@app.route('/addADebt2')
+def newDebtIndex():
+    return render_template('addADebt2.html', selectedMenu = 'NewDebt')
+
+@app.route('/FriendDebt2')
 def friendDebtIndex():
-    return render_template('FriendDebt.html', selectedMenu = 'FriendsInDebt')
+    return render_template('FriendDebt2.html', selectedMenu = 'FriendsInDebt')
 
 
 if __name__ == '__main__':
