@@ -11,10 +11,13 @@ def homePage():
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
   
   #display debts
+  cur.execute('SELECT * FROM user_debt')
+  rows2 = cur.fetchall()
   cur.execute('SELECT * FROM main_list')
   rows = cur.fetchall()
   
-  return render_template('index.html', main_list=rows, selectedMenu = 'Home')
+  
+  return render_template('index.html', main_list=rows, user_debt=rows2, selectedMenu = 'Home')
 
 @app.route('/addaDebt')
 def addDebtIndex():
