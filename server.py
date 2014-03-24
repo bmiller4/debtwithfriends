@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, session, redirect
 import utils
 import MySQLdb
 
 app = Flask(__name__)
+
+app.secret_key = 'NOPE'
+currentUser = ''
 
 @app.route('/', methods = ['GET'])
 def homePage():
