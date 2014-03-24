@@ -75,7 +75,7 @@ def register2():
 		un = MySQLdb.escape_string(request.form['username'])
 		pw = MySQLdb.escape_string(request.form['pw'])
 	
-		query = "INSERT INTO user_list (username, password, 0) VALUES ('%s', '%s')" % (un, pw)
+		query = "INSERT INTO user_list (username, password, total_debt) VALUES ('%s', '%s', 0)" % (un, pw)
 		cur.execute(query)
 		db.commit()
 		if cur.fetchone():
