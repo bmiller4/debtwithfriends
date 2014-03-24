@@ -7,7 +7,8 @@ USE debtDB;
 
 CREATE TABLE user_list (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,/*Auto increment here? also primary key?*/
-  name VARCHAR(50),
+  username VARCHAR(50),
+  password VARCHAR(20),
   total debt INT(1000)
 );
 CREATE TABLE friend_info (
