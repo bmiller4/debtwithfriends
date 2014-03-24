@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 import utils
 import MySQLdb
 
 app = Flask(__name__)
+
+app.secret_key = 'NOPE'
+currentUser = ''
 
 @app.route('/', methods = ['GET'])
 def homePage():
@@ -25,9 +28,8 @@ def addDebtIndex():
   
 @app.route('/addaDebt2', methods=['POST'])
 def newDebtIndex():
-    query = "INSERT INTO friend_debt (friend_lastname, debt_amount, description) VALUES ('";
+    query = "INSERT INTO friend_debt (friend_lastname, debt_amount, description) VALUES ('"git;
     query += request.form['friend_lastname'] + "', '" + request.form['debt_amount'] + "', '" + request.form['description'] + "')"
-    #query2 = "UPDATE main_list SET total_debt = total_debt + " + request.form['debt_amount'] + " WHERE lastname = " + request.form['friend_lastname']
     db = utils.db_connect()
     cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
     cur.execute(query)
@@ -44,24 +46,7 @@ def friendDebtIndex():
     rows = cur.fetchall()
     db.commit()
     return render_template('friendDebt.html', selectedMenu = 'FriendsInDebt',friend_debt=rows)
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-	return render_template('register.html', selectedMenu='Register')
 
-@app.route('/register2',methods=['GET','POST'])
-def register2():
-  db = utils.db_connect()
-  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-  if request.method == 'POST':
-		un = MySQLdb.escape_string(request.form['username'])
-		pw = MySQLdb.escape_string(request.form['pw'])
-	
-		query = "INSERT INTO user_list (username, password, 0) VALUES ('%s', '%s')" % (un, pw)
-		cur.execute(query)
-		db.commit()
-		if cur.fetchone():
-			return redirect(url_for('mainIndex')) 
-  return render_template('register2.html', selectedMenu='Register')
 
 if __name__ == '__main__':
     app.debug = True
