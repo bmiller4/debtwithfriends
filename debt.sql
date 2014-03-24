@@ -8,7 +8,7 @@ USE debtDB;
 CREATE TABLE user_list (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,/*Auto increment here? also primary key?*/
   username VARCHAR(50),
-  passwrd VARCHAR(20),
+  password VARCHAR(20),
   total_debt INT(100)
 );
 

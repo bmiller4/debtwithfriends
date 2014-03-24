@@ -7,20 +7,36 @@ app = Flask(__name__)
 app.secret_key = 'NOPE'
 currentUser = ''
 
-@app.route('/', methods = ['GET'])
+@app.route('/', methods = ['GET', 'POST'])
 def homePage():
-  
+  global currentUser
   db = utils.db_connect()
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-  
+	# if user typed in a post ...
+  if request.method == 'POST':
+		print "HI"
+		session['username'] = MySQLdb.escape_string(request.form['username'])
+		currentUser = session['username']
+		session['pw'] =  MySQLdb.escape_string(request.form['pw'])
+		
+		query = "select * from user_list WHERE username = '%s' AND password = '%s'" % (session['username'], session['pw'])
+
+		print query
+		cur.execute(query)
+		if cur.fetchone():
+			return render_template('index.html', username = currentUser)
+
+  return render_template('login.html', username = currentUser)
+  #db = utils.db_connect()
+  #cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
   #display debts
-  cur.execute('SELECT * FROM user_list')
-  rows2 = cur.fetchall()
-  cur.execute('SELECT * FROM main_list')
-  rows = cur.fetchall()
+  #cur.execute('SELECT * FROM user_list')
+  #rows2 = cur.fetchall()
+  #cur.execute('SELECT * FROM main_list')
+  #rows = cur.fetchall()
   
   
-  return render_template('index.html', main_list=rows, user_debt=rows2, selectedMenu = 'Home')
+  #return render_template('index.html', main_list=rows, user_debt=rows2, selectedMenu = 'Home')
 
 @app.route('/addaDebt')
 def addDebtIndex():
