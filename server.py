@@ -24,7 +24,15 @@ def homePage():
 		print query
 		cur.execute(query)
 		if cur.fetchone():
-			return render_template('index.html', username = currentUser)
+		  cur1 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
+      cur1.execute("select friend_user, friend_totalD from friend_list join user_list join friends ON user_list.id = friends.user_id AND friends.friend_id = friend_list.id WHERE username = '%s'"%(session['username']))
+      rows = cur1.fetchall()
+      cur2 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
+      cur2.execute("select username, total_debt from user_list WHERE username = '%s'" % (currentUser)#session['username']))
+      rows2 = cur2.fetchall()
+      db.commit()
+	    return render_template('index.html', username = currentUser, friend_list = rows, user_list = rows2)
+
 
   return render_template('login.html', username = currentUser)
   #db = utils.db_connect()

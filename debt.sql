@@ -11,6 +11,21 @@ CREATE TABLE user_list (
   password VARCHAR(20),
   total_debt INT(100)
 );
+CREATE TABLE friend_list (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  friend_user VARCHAR(50),
+  friend_totalD INT(100)
+);
+CREATE TABLE friends (
+  user_id INT NOT NULL, 
+  CONSTRAINT user_list_user_id_fk
+  FOREIGN KEY (user_id)
+  REFERENCES user_list (id),
+  friend_id INT NOT NULL, 
+  CONSTRAINT friend_list_friend_id_fk
+  FOREIGN KEY (friend_id)
+  REFERENCES friend_list (id)
+);
 
 CREATE TABLE friend_debt (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, /*primary key*/  
