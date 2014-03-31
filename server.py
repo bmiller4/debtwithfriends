@@ -12,26 +12,24 @@ def homePage():
   global currentUser
   db = utils.db_connect()
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-	# if user typed in a post ...
+  # if user typed in a post ...
   if request.method == 'POST':
 		print "HI"
 		session['username'] = MySQLdb.escape_string(request.form['username'])
 		currentUser = session['username']
 		session['pw'] =  MySQLdb.escape_string(request.form['pw'])
-		
 		query = "select * from user_list WHERE username = '%s' AND password = '%s'" % (session['username'], session['pw'])
-
 		print query
 		cur.execute(query)
 		if cur.fetchone():
-		  cur1 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
-      cur1.execute("select friend_user, friend_totalD from friend_list join user_list join friends ON user_list.id = friends.user_id AND friends.friend_id = friend_list.id WHERE username = '%s'"%(session['username']))
-      rows = cur1.fetchall()
-      cur2 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
-      cur2.execute("select username, total_debt from user_list WHERE username = '%s'" % (currentUser)#session['username']))
-      rows2 = cur2.fetchall()
-      db.commit()
-	    return render_template('index.html', username = currentUser, friend_list = rows, user_list = rows2)
+			cur1 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
+			cur1.execute("select friend_user, friend_totalD from friend_list join user_list join friends ON user_list.id = friends.user_id AND friends.friend_id = friend_list.id WHERE username = '%s'"%(session['username']))
+			rows = cur1.fetchall()
+			cur2 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
+			cur2.execute("select username, total_debt from user_list WHERE username = '%s'" % (currentUser))
+			rows2 = cur2.fetchall()
+			db.commit()
+			return render_template('index.html', username = currentUser, friend_list = rows, user_list = rows2)
 
 
   return render_template('login.html', username = currentUser)
@@ -49,7 +47,24 @@ def homePage():
 @app.route('/addaDebt')
 def addDebtIndex():
     return render_template('addaDebt.html', selectedMenu = 'NewDebt')
-  
+
+@app.route('/addFriend', methods = ['POST', 'GET'])
+def addFriendIndex(): 
+		if currentUser == '':
+			return render_template('login.html')
+		return render_template('addfriend.html', selectedMenu = 'addFriend')
+    
+
+@app.route('/addFriend2', methods = ['POST', 'GET'])
+def addFriendIndex2():
+		db = utils.db_connect()
+		cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+		if request.method == 'POST':
+			query = "INSERT INTO friend_list select id, username, total_debt from user_list WHERE username = '%s'" % (request.form['friend_user'])
+			print query
+			cur.execute(query)
+			db.commit()
+		return render_template('addfriend2.html', selectedMenu = 'addFriend')		
 @app.route('/addaDebt2', methods=['POST'])
 def newDebtIndex():
     query = "INSERT INTO friend_debt (friend_lastname, debt_amount, description) VALUES ('";

@@ -35,9 +35,9 @@ CREATE TABLE friend_debt (
 );
 
 CREATE TABLE friend_info (
-  user_id INT NOT NULL, 
-  CONSTRAINT user_list_user_id_fk
-  FOREIGN KEY (user_id)
+  user_id2 INT NOT NULL, 
+  CONSTRAINT user_list_user_id2_fk
+  FOREIGN KEY (user_id2)
   REFERENCES user_list (id),
   debt_id INT NOT NULL,
   CONSTRAINT friend_debt_debt_id_fk
