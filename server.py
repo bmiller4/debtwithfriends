@@ -9,47 +9,39 @@ currentUser = ''
 
 @app.route('/', methods = ['GET', 'POST'])
 def homePage():
-  global currentUser
-  db = utils.db_connect()
-  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-  # if user typed in a post ...
-  if request.method == 'POST':
-		print "HI"
-		session['username'] = MySQLdb.escape_string(request.form['username'])
-		currentUser = session['username']
-		session['pw'] =  MySQLdb.escape_string(request.form['pw'])
-		query = "select * from user_list WHERE username = '%s' AND password = '%s'" % (session['username'], session['pw'])
-		print query
-		cur.execute(query)
-		if cur.fetchone():
+	global currentUser
+	if currentUser == '':
+		return render_template('login.html', username = currentUser)
+	return render_template('index.html', username = currentUser)
+@app.route('/home', methods = ['GET', 'POST'])
+def homePage2():
+	global currentUser
+	if request.method == 'POST':
+			db = utils.db_connect()
+			cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+			print "HI"
+			session['username'] = MySQLdb.escape_string(request.form['username'])
+			currentUser = session['username']
+			session['pw'] =  MySQLdb.escape_string(request.form['pw'])
+			query = "select * from user_list WHERE username = '%s' AND password = '%s'" % (session['username'], session['pw'])
+			print query
+			cur.execute(query)
+			#if cur.fetchone():
 			cur1 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
-			cur1.execute("select friend_user, friend_totalD from friend_list join user_list join friends ON user_list.id = friends.user_id AND friends.friend_id = friend_list.id WHERE username = '%s'"%(session['username']))
+			cur1.execute("select friend_user, friend_totalD from friend_list join user_list join friends ON user_list.id = friends.user_id AND friends.friend_id = friend_list.friend_id WHERE username = '%s'"%(session['username']))
 			rows = cur1.fetchall()
 			cur2 = db.cursor(cursorclass = MySQLdb.cursors.DictCursor)
 			cur2.execute("select username, total_debt from user_list WHERE username = '%s'" % (currentUser))
 			rows2 = cur2.fetchall()
 			db.commit()
-			return render_template('index.html', username = currentUser, friend_list = rows, user_list = rows2)
-
-
-  return render_template('login.html', username = currentUser)
-  #db = utils.db_connect()
-  #cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-  #display debts
-  #cur.execute('SELECT * FROM user_list')
-  #rows2 = cur.fetchall()
-  #cur.execute('SELECT * FROM main_list')
-  #rows = cur.fetchall()
-  
-  
-  #return render_template('index.html', main_list=rows, user_debt=rows2, selectedMenu = 'Home')
-
+	return render_template('index.html', username = currentUser, friend_list = rows, user_list = rows2)
 @app.route('/addaDebt')
 def addDebtIndex():
     return render_template('addaDebt.html', selectedMenu = 'NewDebt')
 
 @app.route('/addFriend', methods = ['POST', 'GET'])
 def addFriendIndex(): 
+		global currentUser
 		if currentUser == '':
 			return render_template('login.html')
 		return render_template('addfriend.html', selectedMenu = 'addFriend')
@@ -59,10 +51,17 @@ def addFriendIndex():
 def addFriendIndex2():
 		db = utils.db_connect()
 		cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+		cur2 = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+		cur3 = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 		if request.method == 'POST':
 			query = "INSERT INTO friend_list select id, username, total_debt from user_list WHERE username = '%s'" % (request.form['friend_user'])
+			query2 = "INSERT INTO friends select user_list.id, friend_list.friend_id from user_list join friend_list ON friend_list.friend_user <> user_list.username WHERE user_list.username = '%s' AND friend_list.friend_user = '%s'" % (currentUser, request.form['friend_user'])
+			#query3 = "INSERT INTO friends select id from friend_list WHERE friend_user = '%s'" % (request.form['friend_user'])
 			print query
+			print query2
 			cur.execute(query)
+			cur2.execute(query2)
+			#cur3.execute(query3)
 			db.commit()
 		return render_template('addfriend2.html', selectedMenu = 'addFriend')		
 @app.route('/addaDebt2', methods=['POST'])

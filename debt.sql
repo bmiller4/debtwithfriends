@@ -12,7 +12,7 @@ CREATE TABLE user_list (
   total_debt INT(100)
 );
 CREATE TABLE friend_list (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  friend_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   friend_user VARCHAR(50),
   friend_totalD INT(100)
 );
@@ -24,7 +24,7 @@ CREATE TABLE friends (
   friend_id INT NOT NULL, 
   CONSTRAINT friend_list_friend_id_fk
   FOREIGN KEY (friend_id)
-  REFERENCES friend_list (id)
+  REFERENCES friend_list (friend_id)
 );
 
 CREATE TABLE friend_debt (
