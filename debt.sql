@@ -27,22 +27,22 @@ CREATE TABLE friends (
   REFERENCES friend_list (friend_id)
 );
 
-CREATE TABLE friend_debt (
+CREATE TABLE user_debt (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, /*primary key*/  
   transaction VARCHAR(50),
   debt_amount INT(100),
   description VARCHAR(100)
 );
 
-CREATE TABLE friend_info (
+CREATE TABLE debt_info (
   user_id2 INT NOT NULL, 
   CONSTRAINT user_list_user_id2_fk
   FOREIGN KEY (user_id2)
   REFERENCES user_list (id),
   debt_id INT NOT NULL,
-  CONSTRAINT friend_debt_debt_id_fk
+  CONSTRAINT user_debt_debt_id_fk
   FOREIGN KEY (debt_id)
-  REFERENCES friend_debt (id)
+  REFERENCES user_debt (id)
 );
 
 

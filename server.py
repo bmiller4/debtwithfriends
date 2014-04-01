@@ -69,17 +69,20 @@ def addFriendIndex2():
 @app.route('/addaDebt2', methods=['POST'])
 def newDebtIndex():
 		global currentUser
-		query = "INSERT INTO friend_debt (id, transaction, debt_amount, description) VALUES (id,'";
+		query = "INSERT INTO user_debt (id, transaction, debt_amount, description) VALUES (id,'";
 		query += request.form['transaction'] + "', '" + request.form['debt_amount'] + "', '" + request.form['description'] + "')"
-		query2 = "INSERT INTO friend_info select user_list.id, friend_debt.id from user_list NATURAL JOIN friend_debt WHERE username = '%s'" %(request.form['username'])
+		query2 = "INSERT INTO debt_info select user_list.id, user_debt.id from user_list NATURAL JOIN user_debt WHERE username = '%s'" %(request.form['username'])
 		query3 = "UPDATE user_list SET total_debt = total_debt + " + request.form['debt_amount'] + " WHERE username = '%s'" % (request.form['username'])
+		query4 = "UPDATE friend_list SET friend_totalD = friend_totalD + " + request.form['debt_amount'] + " WHERE friend_user = '%s'" % (request.form['username'])
 		db = utils.db_connect()
 		cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 		cur2 = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 		cur3 = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+		cur4 = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 		cur.execute(query)
 		cur2.execute(query2)
 		cur3.execute(query3)
+		cur4.execute(query4)
 		db.commit()
 		return render_template('addaDebt2.html', selectedMenu = 'NewDebt')
 
