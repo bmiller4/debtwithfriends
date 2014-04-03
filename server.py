@@ -117,6 +117,15 @@ def register2():
 			return redirect(url_for('mainIndex')) 
 		return render_template('register2.html', selectedMenu='Register')
 
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+	global currentUser
+	currentUser = ''
+	session.pop('username', None)
+	
+	return redirect(url_for('homePage'))
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=3000)
