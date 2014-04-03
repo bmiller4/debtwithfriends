@@ -91,7 +91,7 @@ def friendDebtIndex():
 		global currentUser
 		db = utils.db_connect()
 		cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-		query1 = 'SELECT * FROM friend_debt'
+		query1 = "SELECT ul.username, ud.transaction, ud.description, ud.debt_amount from user_list ul join user_debt ud on ul.id = ud.id where ul.username <> '%s'" % (currentUser)
 		cur.execute(query1)
 		rows = cur.fetchall()
 		db.commit()

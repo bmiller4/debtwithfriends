@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
       <div id="content">
-        <h1>Friends in Debt</h1>
+        <h1>Debt History</h1>
         <table>
-         <tr><th>Friend Last Name</th><th>Debt</th><th>Description</th></tr>
+          <tr><th>User</th><th>Debt</th><th>Transaction</th><th>Description</th></tr>
         {% for result in friend_debt %}
-        <tr><td>{{result['friend_lastname']}}</td><td>{{result['debt_amount']}}</td><td>{{result['description']}}</td></tr>
+          <tr><td>{{result['username']}}</td><td>{{result['debt_amount']}}</td><td>{{result['transaction']}}<td>{{result['description']}}</td></tr>
         {% endfor %}
          </table>
       </div>
